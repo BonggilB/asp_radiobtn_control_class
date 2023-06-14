@@ -75,3 +75,37 @@
                 return "X";
         }
     }
+
+
+
+    public class Extensions : RdoClass
+    {
+        public void SetRdobtn(Control Controls, DataSet ds)
+        {
+            RdoClass[] rdoClasses = GetRadioBtn(Controls);
+            int i = 6;// 데이터 셋의 라디오 버튼 상태 컬럼이 6번째부터 2개씩 증가돼 저장돼있음
+
+            foreach (RdoClass rdoClass in rdoClasses)
+            {
+                if (ds.Tables[0].Rows[0].ItemArray[i].ToString() == "O")
+                    rdoClass.YesButton.Checked = true;
+                else if (ds.Tables[0].Rows[0].ItemArray[i].ToString() == "X")
+                    rdoClass.NoButton.Checked = true;
+                i += 2;
+
+                rdoClass.YesButton.Visible = false;
+                rdoClass.NoButton.Visible = false;
+            }
+        }
+
+        public void SetRdobtn(Control Controls, bool Visible)
+        {
+            RdoClass[] rdoClasses = GetRadioBtn(Controls);
+
+            foreach (RdoClass rdoClass in rdoClasses)
+            {
+                rdoClass.YesButton.Visible = Visible;
+                rdoClass.NoButton.Visible = Visible;
+            }
+        }
+    }
